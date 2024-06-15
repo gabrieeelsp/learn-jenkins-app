@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('build') {
+        stage('Duild') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -17,6 +17,19 @@ pipeline {
                     npm ci
                     npm run build
                     ls -al
+                '''
+            }
+        }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    echo Test stage
                 '''
             }
         }
