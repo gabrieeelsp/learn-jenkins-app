@@ -27,6 +27,7 @@ pipeline {
                 '''
             }
         }
+        
         stage('Tests') {
             parallel {
                 stage('Unit tests') {
@@ -72,6 +73,7 @@ pipeline {
                 }
             }
         }
+
         stage('Deploy Staging') {
             agent {
                 docker {
@@ -89,11 +91,13 @@ pipeline {
                 '''
             }
         }
+
         stage('Approval') {
             steps {
                 input message: 'Do you wish to deploy to production?', ok: 'Yes, I am sure!'
             }
         }
+
         stage('Deploy Prod') {
             agent {
                 docker {
@@ -111,6 +115,7 @@ pipeline {
                 '''
             }
         }
+
         stage('Prod E2E') {
             agent {
                 docker {
